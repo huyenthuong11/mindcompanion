@@ -16,6 +16,7 @@ export default function AuthProvider({ children }) {
 
     const login = (userData, token) => {
         localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(userData));
         setUser(userData);
     };
 
@@ -23,7 +24,7 @@ export default function AuthProvider({ children }) {
         localStorage.removeItem("token");
         setUser(null);
     };
-    console.log("Giá trị của AuthContext là: - AuthContext.js:26", AuthContext);
+    console.log("Giá trị của AuthContext là: - AuthContext.js:27", AuthContext);
     return(
         <AuthContext.Provider value ={{ user, setUser, login, logout, loading }}>
             {children}
