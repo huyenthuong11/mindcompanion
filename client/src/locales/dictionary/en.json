@@ -1,0 +1,12 @@
+{
+    "auth": {
+        "email": "Email",
+        "password": "Password",
+        "login": "Login",
+        "noAccount": "Don't have an account? ",
+        "register": "Register now",
+        "invalidEmail": "Please enter a valid email",
+        "passwordRequired": "Please enter your password",
+        "passwordMinLength": "Password must have at least 6 characters"
+    }
+}

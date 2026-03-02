@@ -1,0 +1,23 @@
+{
+    "auth": {
+        "login":{
+            "title": "Đăng nhập vào tài khoản của bạn",
+            "loginButton": "Đăng nhập",
+            "noAccount": "Bạn chưa có tài khoản? ",
+            "register": "Đăng ký ngay",
+            "wrongPassword": "Mật khẩu không đúng",
+            "userNotFound": "Không tìm thấy người dùng",
+            "forgotPassword": "Quên mật khẩu?"
+        },
+        "register":{
+            "title": "Đăng ký tài khoản mới",
+            "registerButton": "Đăng ký",
+            "haveAccount": "Bạn đã có tài khoản? "
+        },
+        "username": "Tên tài khoản",
+        "password": "Mật khẩu",
+        "invalidEmail": "Vui lòng nhập email hợp lệ",
+        "passwordRequired": "Vui lòng nhập mật khẩu",
+        "passwordMinLength": "Mật khẩu phải có ít nhất 6 ký tự"
+    }
+}
