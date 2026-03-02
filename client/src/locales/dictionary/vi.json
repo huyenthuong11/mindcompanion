@@ -7,16 +7,26 @@
             "register": "Đăng ký ngay",
             "wrongPassword": "Mật khẩu không đúng",
             "userNotFound": "Không tìm thấy người dùng",
-            "forgotPassword": "Quên mật khẩu?"
+            "forgotPassword": "Quên mật khẩu?",
+            "loginSuccess": "Đăng nhập thành công! Chào mừng bạn trở lại."
         },
         "register":{
             "title": "Đăng ký tài khoản mới",
             "registerButton": "Đăng ký",
-            "haveAccount": "Bạn đã có tài khoản? "
+            "haveAccount": "Bạn đã có tài khoản? ",
+            "login": "Đăng nhập ngay",
+            "gender": "Giới tính",
+            "male": "Nam",
+            "female": "Nữ",
+            "other": "Khác",
+            "dontWantToReveal": "Không muốn tiết lộ",
+            "selectGender": "Vui lòng chọn giới tính",
+            "registrationSuccess": "Đăng ký thành công!"
         },
         "username": "Tên tài khoản",
+        "usernameRequired": "Vui lòng nhập tên tài khoản",
         "password": "Mật khẩu",
-        "invalidEmail": "Vui lòng nhập email hợp lệ",
+        "invalidUsername": "Vui lòng nhập tên tài khoản hợp lệ",
         "passwordRequired": "Vui lòng nhập mật khẩu",
         "passwordMinLength": "Mật khẩu phải có ít nhất 6 ký tự"
     }

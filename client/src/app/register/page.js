@@ -6,23 +6,27 @@ import { AuthContext } from "../../context/AuthContext";
 import { useTranslation } from 'react-i18next';
 import Link from "next/link";
 import Grid from "@mui/material/Grid";
-import { Typography, TextField, Alert } from "@mui/material";
+import { Typography, Alert, FormControl, 
+    InputLabel, Select, MenuItem, TextField,
+    FormHelperText } from "@mui/material";
 import { Box } from "@mui/system";
 import Button from "@mui/material/Button";
 import Image from "next/image";
 import styles from "./page.module.css";
+import api from "../../lib/axios.js";
 
 
-
-export default function RegisterPage() {
+export default function RegisterPage({ params }) {
     const router = useRouter();
     const {register} = useContext(AuthContext);
-    const { t, i18n } = useTranslation();
+    const [successMessage, setSuccessMessage] = useState("");
+    const { t } = useTranslation();
 
     //State để quản lý lỗi
     const [errors, setErrors] = useState({
         username: '',
         password: '',
+        gender: '',
         server: ''
     });
 
@@ -30,7 +34,8 @@ export default function RegisterPage() {
     //State để quản lý giá trị input
     const [form, setForm] = useState({
         username: '',
-        password: ''
+        password: '',
+        gender: ''
     });
 
     //Xử lý thay đổi input
@@ -47,6 +52,7 @@ export default function RegisterPage() {
             [name]: '',
             server: ''
         }));
+        setSuccessMessage('');
     };
 
     //Validate form
@@ -59,18 +65,18 @@ export default function RegisterPage() {
         };
 
         //Validate username
-        if(!form.username) {
-            newErrors.username = t('usernameRequired');
-            isValid = false;
-        } else if (form.username.length < 3) {
-            newErrors.username = t("usernameMinLength");
-            isValid = false;
-        }
-        //Validate password
-        if(!form.password) {
-            newErrors.password = t('passwordRequired');
+        if(!form.username.trim()) {
+            newErrors.username = t('auth.usernameRequired');
             isValid = false;
         } 
+        //Validate password
+        if(!form.password.trim()) {
+            newErrors.password = t('auth.passwordRequired');
+            isValid = false;
+        } else if (form.password.length < 6) {
+            newErrors.password = t("auth.passwordMinLength");
+            isValid = false;
+        }
 
         setErrors(newErrors);
         return isValid;
@@ -84,19 +90,25 @@ export default function RegisterPage() {
 
         try {
             //call API Register
-            const response = await api.post("/api/auth/register", {
+            const response = await api.post("/auth/register", {
                 username: form.username,
-                password: form.password
+                password: form.password,
+                gender: form.gender,
             });
+            if (response.status === 200 || response.status === 201) {
+                console.log("Create new account success  createnewaccount:101 - page.js:99", response.data);
+                setSuccessMessage(t('auth.register.registrationSuccess'));
+                setForm({
+                    username: "",
+                    password: "",
+                    gender: "",
+                });
+                console.log("/ - page.js:106");
+                router.push("/login");
+            }
 
             console.log(response.data)
-            dispatch(register({
-                token: response.data?.accessToken,
-                user: response.data?.userInfo
-            }));
-
-            //redirect profile
-            router.push(`/${params.lang}`);
+            
         } catch (err) {
             setErrors(prev => ({
                 ...prev,
@@ -134,8 +146,18 @@ export default function RegisterPage() {
                                 </Typography>
 
                                 <Box component="form" onSubmit={handleSubmit} noValidate sx={{ width: '100%', mt: 1 }}>
-                                    <Box>
+                                    {errors.server && (
+                                        <Alert severity="error" sx={{ mb: 2 }}>
+                                            {errors.server}
+                                        </Alert>
+                                        )}
                                         
+                                        {successMessage && (
+                                        <Alert severity="success" sx={{ mb: 2 }}>
+                                            {successMessage}
+                                        </Alert>
+                                        )}
+                                    <Box>
                                         <TextField
                                             required
                                             margin="normal"
@@ -154,6 +176,38 @@ export default function RegisterPage() {
                                             helperText={errors.username}
                                         />
                                     </Box>
+
+                                    <FormControl fullWidth required error={!!errors.gender}>
+                                        <InputLabel id="gender">{t('auth.register.gender')}</InputLabel>
+                                            <Select
+                                                value={form.gender}
+                                                name="gender"
+                                                labelId="gender"
+                                                label={t('auth.register.gender')}
+                                                InputProps={{
+                                                    style: { borderRadius: 8 },
+                                                }}
+                                                onChange={(e) => {
+                                                    setForm((prevData) => ({
+                                                    ...prevData,
+                                                    gender: e.target.value,
+                                                    }));
+                                                    setErrors((prevErrors) => ({
+                                                    ...prevErrors,
+                                                    gender: "",
+                                                    }));
+                                                }}
+                                            >
+                                            <MenuItem value="male">{t('auth.register.male')}</MenuItem>
+                                            <MenuItem value="female">{t('auth.register.female')}</MenuItem>
+                                            <MenuItem value="other">{t('auth.register.other')}</MenuItem>
+                                            <MenuItem value="Don't want to reveal">{t('auth.register.dontWantToReveal')}</MenuItem>
+                                            
+                                            </Select>
+                                        {errors.gender && (
+                                        <FormHelperText>{errors.gender}</FormHelperText>
+                                        )}
+                                    </FormControl>
 
                                     <Box>  
                                         <TextField
@@ -174,25 +228,24 @@ export default function RegisterPage() {
                                             helperText={errors.password}
                                         />
                                     </Box>
+                                    <Button
+                                        type="submit"
+                                        fullWidth
+                                        variant="contained"
+                                        sx={{
+                                            mt: 2,
+                                            textTransform: "capitalize",
+                                            borderRadius: "8px",
+                                            fontWeight: "500",
+                                            fontSize: "16px",
+                                            padding: "12px 10px",
+                                            color: "#fff !important",
+                                        }}
+                                        >
+                                        {t('auth.register.registerButton')}
+                                    </Button>
                                 </Box>
                             </Box>
-
-                            <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                sx={{
-                                    mt: 2,
-                                    textTransform: "capitalize",
-                                    borderRadius: "8px",
-                                    fontWeight: "500",
-                                    fontSize: "16px",
-                                    padding: "12px 10px",
-                                    color: "#fff !important",
-                                }}
-                                >
-                                {t('auth.register.registerButton')}
-                            </Button>
                         </Grid>
                     </Grid>
                 </div>    

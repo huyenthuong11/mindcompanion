@@ -99,6 +99,10 @@ router.post("/login", async(req, res) => {
         res.json({
             message: "Đăng nhập thành công",
             token,
+            user: {
+                id: user._id,
+                username: user.username,
+            },
         });
 
     } catch (error) {
