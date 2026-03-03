@@ -8,8 +8,14 @@ export default function AuthProvider({ children }) {
     
     useEffect(() => {
         const token = localStorage.getItem("token");
-        if (token) {
-            setUser({ token });
+        const userString = localStorage.getItem("user");
+        if (token && userString) {
+            try {
+                setUser(JSON.parse(userString));
+            } catch (error) {
+                console.error("Failed to parse user from localStorage - AuthContext.js:16", error);
+                localStorage.removeItem("user");
+            }
         }
         setLoading(false);
     }, []);
@@ -22,9 +28,10 @@ export default function AuthProvider({ children }) {
 
     const logout = () => {
         localStorage.removeItem("token");
+        localStorage.removeItem("user");
         setUser(null);
     };
-    console.log("Giá trị của AuthContext là: - AuthContext.js:27", AuthContext);
+    console.log("Giá trị của AuthContext là: - AuthContext.js:34", AuthContext);
     return(
         <AuthContext.Provider value ={{ user, setUser, login, logout, loading }}>
             {children}

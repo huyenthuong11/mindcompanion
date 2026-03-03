@@ -93,8 +93,8 @@ export default function LoginPage() {
             });
             
             if (response.status === 200 || response.status === 201) {
-                console.log("Create new account success  createnewaccount:101 - page.js:96", response.data);
-                setSuccessMessage(t('auth.register.registrationSuccess'));
+                console.log("Login success  login:101 - page.js:96", response.data);
+                setSuccessMessage(t('auth.login.loginSuccess'));
                 setForm({
                     username: "",
                     password: "",
