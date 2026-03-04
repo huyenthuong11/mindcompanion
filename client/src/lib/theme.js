@@ -6,6 +6,9 @@ const theme = createTheme({
     fontFamily: "'Quicksand', 'Be Vietnam Pro', sans-serif",
     h1: { fontWeight: 700 },
     h2: { fontWeight: 600 },
+    h3: { fontWeight: 500 },
+    h4: { fontWeight: 400 },
+    h5: { fontWeight: 300 },
   },
 });
 

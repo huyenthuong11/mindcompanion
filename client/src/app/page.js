@@ -12,6 +12,8 @@ export default function Page({ params: { lang } }) {
     const [moods, setMoods] = useState([]);
     const { user, logout } = useContext(AuthContext);
     const time = new Date();
+    const [mounted, setMounted] = useState(false);
+    
     console.log( user?.username, time);
     
     const morningGreetings = [
@@ -20,8 +22,8 @@ export default function Page({ params: { lang } }) {
             "vi": `Chào buổi sáng ${user?.username || 'bạn của tớ'}.\nTối qua cậu mơ đẹp chứ?`
         },
         {
-            "en": 'Hi there!\nReady to conquer the day?',
-            "vi": 'Chào cậu!\nSẵn sàng chinh phục ngày mới chưa?'
+            "en": `Hi ${user?.username || "there"}!\nReady to conquer the day?`,
+            "vi": `Chào ${user?.username || "cậu"}!\nSẵn sàng chinh phục ngày mới chưa?`
         },
         {
             "en": 'Already awake?\nWishing you a day full of peace and joy.',
@@ -107,17 +109,20 @@ export default function Page({ params: { lang } }) {
 
     const getMood = async () => {
         try {
-            const response = await api.get("/mood");
-            const data = await response.json();
+            const response = await api.get("/mood/get");
+            const data = response.data;
             setMoods(data);
         } catch (err) {
-            console.error("Failed to fetch moods: - page.js:114", err);
+            console.error("Failed to fetch moods: - page.js:116", err);
         }
     };
 
     useEffect(() => {
+        setMounted(true);
         getMood();
     }, []);
+
+    if (!mounted) return null;
 
     const chartData = moods.map(item => ({
         date: new Date(item.createdAt).toLocaleDateString(),
@@ -137,13 +142,13 @@ export default function Page({ params: { lang } }) {
                         </div>
                         <input
                             className={styles.search}
-                            placeholder="Search..."
+                            placeholder="Tìm kiếm ghi chú..."
                         />
 
                         {user ? (
                             <div className={styles.user}>
                                 <Avatar></Avatar> 
-                                <span>{user?.username || "Username"}</span> 
+                                <span>{mounted ? (user?.username || "Username") : "Đang tải..."}</span> 
                                 <div className={styles.sign}> 
                                     <a onClick={handleLogout}>Đăng xuất</a>
                                 </div>
@@ -159,21 +164,19 @@ export default function Page({ params: { lang } }) {
                     <aside className={styles.sidebar}>
                         { user ? (
                             <nav>
-                                <a onClick={() => router.push("/")}>Home</a>
-                                <p onClick={() => router.push("/note")}>Note</p>
-                                <p>Library</p>
-                                <p>Goal</p>
-                                <p>Chatbot</p>
-                                <p>Setting</p>
+                                <a onClick={() => router.push("/")}>Trang chủ</a>
+                                <p onClick={() => router.push("/note")}>Ghi chú</p>
+                                <p onClick={() => router.push("/library")}>Thư viện</p>
+                                <p onClick={() => router.push("/chatbot")}>Chatbot</p>
+                                <p onClick={() => router.push("/setting")}>Cài đặt</p>
                             </nav>
                         ) : (
                             <nav>
-                                <p>Home</p>
-                                <p>Note</p>
-                                <p>Library</p>
-                                <p>Goal</p>
+                                <p>Trang chủ</p>
+                                <p>Ghi chú</p>
+                                <p>Thư viện</p>
                                 <p>Chatbot</p>
-                                <p>Setting</p>
+                                <p>Cài đặt</p>
                             </nav>
                         )}
                     </aside>

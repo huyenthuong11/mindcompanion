@@ -8,13 +8,13 @@ import authMiddleware from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
-//POST /api/moods
+//POST /api/moods/create
 router.post("/create", authMiddleware, createMoodEntry);
 
-//GET /api/moods
+//GET /api/moods/get
 router.get("/get", authMiddleware, getMoodEntries);
 
-//DELETE /api/moods/:id
+//DELETE /api/moods/delete/:id
 router.delete("/delete/:id", authMiddleware, deleteMoodEntry);
 
 export default router;
