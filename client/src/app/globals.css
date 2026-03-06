@@ -1,9 +1,145 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700&family=Quicksand:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700&family=Quicksand:wght@300;400;500;600;700&display=swap');
 
-html,
-body {
-  padding: 0;
+/* 2. Reset & Base Styles */
+* {
+  box-sizing: border-box;
   margin: 0;
+  padding: 0;
 }
 
+body {
+  font-family: 'Quicksand', sans-serif;
+  overflow-x: hidden;
+}
+
+/* 3. Layout Chính */
+.container {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  flex-direction: column;
+  background: linear-gradient(135deg, #B2C9AB 0%, #A2C2E1 25%, #e8edca 50%, #D1D1F0 70%);
+}
+
+.main {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  grid-template-rows: 60px 1fr;
+  height: 100vh; 
+}
+
+/* 4. Header & Sidebar */
+
+.header {
+  grid-column: 1 / 3;  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.25);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  flex-shrink: 0;
+}
+
+.webicon {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 10px;
+}
+
+.websiteName {
+  font-size: 24px;
+  font-weight: bold;
+  color: #093149;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+.logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-image: url("/images/mcicon.jpg");
+  background-size: cover;
+}
+
+.user {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-right: 5px;
+}
+
+.sign {
+    gap: 5px;
+    display: flex;
+    justify-content: flex-end;
+    padding: 0;
+}
+
+.sign a {
+  color: #093149;
+  text-decoration: underline;
+  /* font-style: italic; */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  border: 1px #c1d7e8 solid;
+  border-radius: 20px;
+  padding: 10px 16px;
+  transition: transform 0.3s ease;
+  white-space: nowrap;
+}
+
+.sign a:hover {
+  background-color: #496679;
+  box-shadow: 0 8px 20px rgba(202, 225, 243, 0.774); 
+  border-color: #6c808d;
+}
+
+.sidebar {
+  
+  grid-row: 2 / 3;
+  background: #abc9c18b;
+  backdrop-filter: blur(10px);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  font-family: Quicksand, sans-serif;
+  font-weight: 500;
+}
+
+.sidebar nav {
+  margin-top: 30px;
+  text-align: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 80px;
+}
+
+.sidebar nav p {
+  max-width: 80px;
+  display: block;
+  color: #093149;
+  text-shadow: 2px 2px 5px rgba(151, 18, 18, 0.1);
+  border-radius: 5px;
+  padding: 10px 2px;
+  width: 100%;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.sidebar nav a {
+  max-width: 80px;
+  display: block;
+  color: #093149;
+  text-shadow: 2px 2px 5px rgba(151, 18, 18, 0.1);
+  border-radius: 5px;
+  padding: 10px 2px;
+  width: 100%;
+  white-space: nowrap;
+  cursor: pointer;
+  background-color: #86baac;
+
+}
+
+.sidebar nav p:hover {
+  
+  background-color: #92cabb;
+}

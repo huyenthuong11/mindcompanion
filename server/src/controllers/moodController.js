@@ -3,12 +3,14 @@ import moodEntryModel from "../models/MoodEntries.js";
 //tạo mood entry mới
 export const createMoodEntry = async (req, res) => {
     try {
-        const { mood, energy, note } = req.body;
+        const { userId, mood, energy, note, tags } = req.body;
+        
         const entry = await moodEntryModel.create({
-            userId: req.user._id,
+            userId,
             mood,
             energy,
-            note
+            note, 
+            tags
         });
         res.status(201).json(entry);
     } catch (error) {
@@ -19,8 +21,9 @@ export const createMoodEntry = async (req, res) => {
 //Lấy danh sách mood entry của user
 export const getMoodEntries = async (req, res) => {
     try {
+        const {userId} = req.query;
         const entries = await moodEntryModel.find({ 
-            userId: req.user._id 
+            userId
         })
             .sort({ createdAt: -1 })
             .limit(30);
@@ -33,8 +36,9 @@ export const getMoodEntries = async (req, res) => {
 //Xóa mood entry
 export const deleteMoodEntry = async (req, res) => {
     try {
-         const entries = await moodEntryModel.findOneAndDelete({ 
-            userId: req.user._id,
+        const {userId} = req.body;
+        const entries = await moodEntryModel.findOneAndDelete({ 
+            userId,
             _id: req.params.id
         })
         if (!entries) {

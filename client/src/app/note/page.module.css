@@ -1,174 +1,48 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700&family=Quicksand:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700&family=Quicksand:wght@300;400;500;600;700&display=swap');
 
-
-.wrapper {
-  display: flex;
-  min-height: 100vh;
-  width: 100%;
-  overflow-x: auto;
-  flex-direction: column;
-  background: linear-gradient(135deg, #60b1ab 0%, #7be0db 25%, #76cced 50%, #D1D1F0 70% );
-}
-
-
-.main {
-  display: grid;
-  grid-template-columns: 80px 1fr;
-  grid-template-rows: 60px 1fr;
-  height: 100vh;  
- 
-}
-
-.header {
-  grid-column: 1 / 3;  
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: rgba(255, 255, 255, 0.25);
-  border-right: 1px solid rgba(255, 255, 255, 0.2);
-  flex-shrink: 0;
-}
-
-.webicon {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-left: 10px;
-}
-.website-name {
-  font-size: 24px;
-  font-weight: bold;
-  color: #093149;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.logo {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background-image: url("/images/mcicon.jpg");
-  background-size: cover;
-}
-
-.user {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  margin-right: 5px;
-}
-
-.search {
-  width: 100%;
-  padding: 8px 8px;
-  border-radius: 999px;
-  border: none;
-  outline: none;
-}
-
-.sign {
-    gap: 5px;
-    display: flex;
-    justify-content: flex-end;
-    padding: 0;
-}
-
-.sign a {
-  color: #093149;
-  text-decoration: underline;
-  /* font-style: italic; */
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-  border: 1px #c1d7e8 solid;
-  border-radius: 20px;
-  padding: 10px 16px;
-  transition: transform 0.3s ease;
-  white-space: nowrap;
-}
-
-.sign a:hover {
-  background-color: #496679;
-  box-shadow: 0 8px 20px rgba(202, 225, 243, 0.774); 
-  border-color: #6c808d;
-}
-
-.sidebar {
-  grid-row: 2 / 3;
-  background: rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(10px);
-  border-right: 1px solid rgba(255, 255, 255, 0.2);
-  font-family: Quicksand, sans-serif;
-  font-weight: 500;
-}
-
-.sidebar nav {
-  text-align: center;
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  max-width: 80px;
-}
-
-.sidebar nav p {
-  max-width: 80px;
-  display: block;
-  color: #093149;
-  text-shadow: 2px 2px 5px rgba(151, 18, 18, 0.1);
-  border-radius: 5px;
-  padding: 10px 2px;
-  width: 100%;
-  white-space: nowrap;
-  cursor: pointer;
-}
-
-.sidebar nav a {
-  max-width: 80px;
-  display: block;
-  color: #093149;
-  text-shadow: 2px 2px 5px rgba(151, 18, 18, 0.1);
-  border-radius: 5px;
-  padding: 10px 2px;
-  width: 100%;
-  white-space: nowrap;
-  cursor: pointer;
-  background-color: #62c9c2;
-
-}
-
-.sidebar nav p:hover {
-  
-  background-color: #6eccc6;
-}
 
 .grid {
-  margin-right: 20px;
-  margin-left: 20px;
+  margin-right: clamp(10px, 2vw, 20px);
+  margin-left: clamp(10px, 2vw, 20px);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: clamp(15px, 2vw, 30px);
   flex: 1;
-  overflow-y: auto; 
+  overflow-y: auto;
 }
 
 .card {
   font-family: Be Vietnam Pro, sans-serif;
   grid-column: span 1;
   grid-row: span 3;
-  display: flex;
-  justify-content: center;
   font-weight: 800;
-  background: rgba(177, 222, 183, 0.342);
+  background: rgba(145, 183, 174, 0.671);
+  grid-template-rows: 80px 1fr;
+  height: 100vh;
+  margin-top: 25px;
+  border-radius: 16px;
+}
+
+.cardHeader {
+  font-size: clamp(20px, 2vw, 35px);
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  margin-top: 4vh;
+  margin-bottom: 5vh;
 }
 
 .historyBox {
-  margin-top: 30px;
-  min-height: 70vh;
-  display: grid;
-  overflow-y: scroll;
-  margin-left: 5px;
-  margin-right: 5px;
+  flex: 1;
+  margin:auto;
+  overflow-y: auto;
   border-radius: 15px;
-  gap: 15px;
+  width: 85%;
+  height: 80%;
+  
 }
 
 .noHistory {
@@ -179,39 +53,49 @@
 .historyCard {
   background: rgba(238, 238, 238, 0.342);
   border-radius: 15px;
-  padding: 10px;
+  padding: 1vw;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
-}
-
-.historyCard.energy-1{
-  border: 1px solid #333333;
-  box-shadow: inset 0 0 30px -5px #333333;
-}
-
-.historyCard.energy-2{
-  border: 1px solid #ccedff;
-  box-shadow: inset 0 0 30px -5px #ccedff;
-}
-
-.historyCard.energy-3{
-  border: 1px solid #F0F0F5;
-  box-shadow: inset 0 0 30px -5px #F0F0F5;
-}
-
-.historyCard.energy-4{
-  border: 1px solid #FFFFCC;
-  box-shadow: inset 0 0 30px -5px #FFFFCC;
+  height: 1vh;
+  margin-right: 6px;
+  padding-right: 8px;
+  height: fit-content;
+  margin-bottom: 15px;
 }
 
 .historyCard.energy-5{
-  border: 1px solid #FFFF99;
-  box-shadow: inset 0 0 30px -5px #FFFF99;
+  border: 1px solid #4db5fa;
+  background: rgba(238, 238, 238, 0.596);
+  box-shadow: inset 0 0 30px -5px rgb(118, 197, 249);
+}
+
+.historyCard.energy-4{
+  border: 1px solid #5cf69c;
+  background: rgba(238, 238, 238, 0.596);
+  box-shadow: inset 0 0 30px -5px rgb(120, 239, 170);
+}
+
+.historyCard.energy-3{
+  border: 1px solid #F9E79F;
+  background: rgba(238, 238, 238, 0.596);
+  box-shadow: inset 0 0 30px -5px #F9E79F;
+}
+
+.historyCard.energy-2{
+  border: 1px solid #f8c36d;
+  background: rgba(238, 238, 238, 0.596);
+  box-shadow: inset 0 0 30px -5px #fcc66f;
+}
+
+.historyCard.energy-1{
+  border: 1px solid #d77171;
+  background: rgba(238, 238, 238, 0.596);
+  box-shadow: inset 0 0 30px -5px #d77171;
 }
 
 .historyDay {
-  font-size: 15px;
+  font-size: clamp(8px, 1.2vw, 15px);
   grid-column: span 4;
   grid-row: span 1;
 }
@@ -221,45 +105,54 @@
   border-radius: 10px;
   margin-bottom: 15px;
   grid-column: span 1;
-  grid-row: span 2;
+  grid-row: span 3;
 }
 
 .historyNote {
   grid-column: span 3;
   grid-row: span 2;
-  font-size: 10px;
+  font-size: clamp(8px, 1.2vw, 15px);
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   overflow-wrap: break-word; 
-  
+  text-overflow: ellipsis;
 }
 
 .tags {
+  grid-column: span 3;
+  grid-row: span 1;
   display: flex;
   flex-wrap: wrap; 
-  gap: 6px;
+  gap: 5px
 }
 
 .tag {
-  background: #eef2ff;
-  color: #3730a3;
-  padding: 4px 10px;
+  padding: 0.5vw;
   border-radius: 999px;
-  font-size: 12px;
+  font-size: clamp(8px, 1vw, 15px);
   max-width: 120px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  background: var(--bg-color);
+  color: var(--text-color);
+}
+
+.tagActive {
+  backdrop-filter: blur(30px);
+  background: var(--bg-color);
+  color: var(--text-color);
 }
 
 .cardWide {
-  margin-top: 15px;
+  margin-top: 25px;
+  margin-bottom: 40px;
   border-radius: 16px;
   white-space: pre-line;
   line-height: 1.6;
-  font-size: 24px;
+  height: 100vh;
   font-family: Be Vietnam Pro, sans-serif;
   font-weight: 700;
   grid-column: span 2;
@@ -270,7 +163,7 @@
 }
 
 .cardWideHeader {
-  font-size: 35px;
+  font-size: clamp(25px, 2vw, 35px);
   border-bottom: 2px solid #9794945e;
   display: flex;
   justify-content: center;
@@ -279,6 +172,7 @@
   position: relative;
   overflow: hidden;
   background-color: transparent;
+  
 }
 
 .leaf-wrapper1 {
@@ -356,18 +250,20 @@
 .moodList {
   display: flex;
   flex-direction: row; 
-  gap: 50px;
+  gap: 30px;
   align-items: center;
+  flex-wrap: wrap
 }
 
-.iconItem {
-  font-size: 35px;
+.iconItem { 
+  font-size: clamp(30px, 3vw, 35px);
   cursor: pointer;
-  padding: 5px;
+  padding: 0.6vw;
   border-radius: 50%;
   transition: all 0.3s ease-in-out;
   align-items: center;
   justify-content: center;
+  white-space: nowrap;
 }
 
 .iconItem.active {
@@ -382,6 +278,12 @@
   z-index: 10; 
 }
 
+.energySlider {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .energyList {
   display: flex;
   flex-direction: row; 
@@ -389,11 +291,11 @@
   align-items: center;
   width: 100%;
   margin-top: 10px;
+  font-size: clamp(10px, 1vw, 15px);
 }
 
 .energyItem {
   white-space: nowrap;
-  font-size: 15px;
   font-weight: 500;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)
 }
@@ -403,5 +305,22 @@
   transform: translateY(-10px) scale(1.1);
 }
 
+.noteBox {
+  width: 90%;
+  max-width: 850px;
+  height: 100px;
+  padding: 1vw;
+  margin-top: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 20px;
+  font-size: clamp(8px, 1.2vw, 15px);
+  background: #f0f4f4f3;
+  z-index: 3;
+}
 
-
+.saveNoteButton {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}

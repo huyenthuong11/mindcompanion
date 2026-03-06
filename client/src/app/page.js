@@ -1,18 +1,16 @@
 "use client";
 import styles from "./page.module.css";
 import { useRouter } from "next/navigation";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { Avatar } from "@mui/material";
-import api from "../lib/axios.js";
+import Suggestion from "./suggestion/page.js";
 import MoodChart from "./chart/page.js";
 
-export default function Page({ params: { lang } }) {
+export default function Page() {
     const router = useRouter();
-    const [moods, setMoods] = useState([]);
     const { user, logout } = useContext(AuthContext);
     const time = new Date();
-    const [mounted, setMounted] = useState(false);
     
     console.log( user?.username, time);
     
@@ -38,12 +36,12 @@ export default function Page({ params: { lang } }) {
             "vi": "Cùng tớ tạo nên một ngày thật đáng nhớ nhé,\ndù chỉ là những niềm vui nhỏ nhặt nhất thôi."
         },
         {
-            "en": `It's morning already, ${user?.name || "my friend"}.\nI just brewed a virtual cup of tea, would you like to have a sip for a fragrant day ahead?`,
-            "vi": `Sáng rồi này ${user?.name || "bạn ơi"}.\nTớ vừa pha một tách trà ảo đây, mời cậu một ngụm cho ngày mới thật thơm nhé!`
+            "en": `It's morning already, ${user?.username || "my friend"}.\nI just brewed a virtual cup of tea, would you like to have a sip for a fragrant day ahead?`,
+            "vi": `Sáng rồi này ${user?.username || "bạn ơi"}.\nTớ vừa pha một tách trà ảo đây, mời cậu một ngụm cho ngày mới thật thơm nhé!`
         },
         {
-            "en": `Have a good day, ${user?.name || "my friend"}.\nLet's start a new day with a light heart together.`,
-            "vi": `Ngày mới an lành, ${user?.name || "bạn của tớ"}.\nMình cùng bắt đầu lại một trang mới thật nhẹ nhàng nhé.`
+            "en": `Have a good day, ${user?.username || "my friend"}.\nLet's start a new day with a light heart together.`,
+            "vi": `Ngày mới an lành, ${user?.username || "bạn của tớ"}.\nMình cùng bắt đầu lại một trang mới thật nhẹ nhàng nhé.`
         }
     ];
 
@@ -107,61 +105,34 @@ export default function Page({ params: { lang } }) {
         router.push("/login");
     };
 
-    const getMood = async () => {
-        try {
-            const response = await api.get("/mood/get");
-            const data = response.data;
-            setMoods(data);
-        } catch (err) {
-            console.error("Failed to fetch moods: - page.js:116", err);
-        }
-    };
-
-    useEffect(() => {
-        setMounted(true);
-        getMood();
-    }, []);
-
-    if (!mounted) return null;
-
-    const chartData = moods.map(item => ({
-        date: new Date(item.createdAt).toLocaleDateString(),
-        mood: Number(item.mood),
-        energy: Number(item.energy)
-    }));
-
+    
     return (
         <>
-            <div className={styles.wrapper}>
-                
-                <main className={styles.main}>
-                    <div className={styles.header}>
-                        <div className={styles.webicon}>
-                            <div className={styles.logo}></div>
-                            <div className={styles.websiteName}>Mind Companion</div>
+            <div className="container">
+                <main className="main">
+                    <div className="header">
+                        <div className="webicon">
+                            <div className="logo"></div>
+                            <div className="websiteName">Mind Companion</div>
                         </div>
-                        <input
-                            className={styles.search}
-                            placeholder="Tìm kiếm ghi chú..."
-                        />
 
                         {user ? (
-                            <div className={styles.user}>
+                            <div className="user">
                                 <Avatar></Avatar> 
-                                <span>{mounted ? (user?.username || "Username") : "Đang tải..."}</span> 
-                                <div className={styles.sign}> 
+                                <span>{user?.username || "Username"}</span> 
+                                <div className="sign"> 
                                     <a onClick={handleLogout}>Đăng xuất</a>
                                 </div>
                             </div>
                         ) : (
-                            <div className={styles.sign}>
+                            <div className="sign">
                                 <a onClick={() => router.push("/login")}>Đăng Nhập</a>  
                                 <a onClick={() => router.push("/register")}>Đăng Ký</a>    
                             </div>
                         )}
                     </div>
 
-                    <aside className={styles.sidebar}>
+                    <aside className="sidebar">
                         { user ? (
                             <nav>
                                 <a onClick={() => router.push("/")}>Trang chủ</a>
@@ -183,11 +154,10 @@ export default function Page({ params: { lang } }) {
 
                     <div className={styles.grid}>
                         <div className={styles.cardWide}>{getGreeting()?.vi}</div>
-                        <div className={styles.card}>Suggest</div>
-                        <div className={styles.card}>Goal</div>
-                        <div className={styles.cardChart}><MoodChart data={chartData} /></div>
+                        <div className={styles.cardSuggest}><Suggestion/></div>
+                        <div className={styles.cardChart}><MoodChart/></div>
                         <div className={styles.card}>Phân tích</div>
-                        <div className={styles.card}>Chatbot</div>
+                        <div className={styles.card}>Goal</div>
                     </div>
                 </main>
             </div>

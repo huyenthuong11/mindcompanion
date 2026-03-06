@@ -4,17 +4,16 @@ import {
     getMoodEntries,
     deleteMoodEntry
 } from "../controllers/moodController.js";
-import authMiddleware from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
 //POST /api/moods/create
-router.post("/create", authMiddleware, createMoodEntry);
+router.post("/create", createMoodEntry);
 
 //GET /api/moods/get
-router.get("/get", authMiddleware, getMoodEntries);
+router.get("/get", getMoodEntries);
 
 //DELETE /api/moods/delete/:id
-router.delete("/delete/:id", authMiddleware, deleteMoodEntry);
+router.delete("/delete/:id", deleteMoodEntry);
 
 export default router;
