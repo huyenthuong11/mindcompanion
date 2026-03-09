@@ -5,13 +5,24 @@
 .grid {
   display: grid;
   margin-top: 50px;
+  margin-bottom: 30px;
   margin-right: clamp(10px, 2vw, 20px);
   margin-left: clamp(10px, 2vw, 20px);
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   grid-auto-rows: 120px;
   gap: clamp(15px, 2vw, 30px);
   flex: 1;
   overflow-y: auto; 
+}
+
+.cardAnalyzation {
+  font-family: Quicksand, sans-serif;
+  grid-column: span 1;
+  grid-row: span 2;
+  border-radius: 16px;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.342);
+  display: flex;
 }
 
 .card {
@@ -25,28 +36,16 @@
   grid-template-rows: 40px 1fr;
 }
 
-.cardSuggest {
-  font-family: Quicksand, sans-serif;
-  grid-column: span 2;
-  grid-row: span 2;
-  border-radius: 16px;
-  font-weight: 500;
-  background: rgba(255, 255, 255, 0.342);
-  display: grid;
-  grid-template-rows: 40px 1fr;
-}
-
 .cardWide {
   white-space: pre-line;
   line-height: 1.6;
-  font-size: clamp(15px, 2vw, 24px);
+  font-size: clamp(25px, 1.7vw, 35px);
   font-family: Quicksand, sans-serif;
   font-weight: 800;
   grid-column: span 2;
   grid-row: span 2;
   border-radius: 16px;
   display: flex;
-  align-items: center;
   justify-content: center;
 }
 
@@ -56,6 +55,21 @@
   border-radius: 16px;
   font-size: clamp(5px, 2vw, 13px);
   background: rgba(255, 255, 255, 0.342);
+  grid-template-rows: 40px 1fr;
 }
+
+.chartHeader {
+  font-size: clamp(15px, 2vw, 25px);
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  background-color: transparent;
+  border-radius: 16px 16px 0 0;
+  width: 100%;
+  grid-row: 1/2;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
 
 

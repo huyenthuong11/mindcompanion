@@ -1,0 +1,153 @@
+
+.analyzeCard {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    gap: 8px;
+}
+
+.cardHeader {
+    
+    font-size: clamp(12px, 1.5vw, 25px);
+    justify-content: center;
+    display: flex;
+    background-color: transparent;
+    background: #88b4e0;
+    border-radius: 16px 16px 0 0;
+    width: 100%;
+    padding: 5px;
+}
+.avgMain {
+    display: flex;
+    width: 90%;
+    height: fit-content;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.avgMoodBoard {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-radius: 16px;
+    align-items: center;
+    width: 50%;
+    height: 100%;
+    background-color: rgb(218, 130, 145);
+    font-size: clamp(8px, 1vw, 15px);
+    padding: 3px;
+}
+
+.moodSc {
+    display: flex;
+}
+.avgMoodSc {
+    font-size: clamp(15px, 1.5vw, 20px);
+    font-weight: 600;
+}
+
+.finalMoodSc {
+    margin-top: 10px;
+}
+
+.emotion {
+    margin-top: 2px;
+    font-size: clamp(8px, 0.9vw, 15px);
+}
+
+.avgMoodIcon {
+    position: absolute;
+    width: clamp(45px, 4vw, 80px);
+    height: clamp(45px, 4vh, 80px);
+    background-image: url("/images/moodAvg.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: 0.4;
+}
+
+
+.bottom-right1 {
+  z-index: 0;
+  bottom: -5px;
+  right: 0px;
+  transform: rotate(0deg);
+}
+
+.avgEnergyBoard {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-radius: 16px;
+    align-items: center;
+    width: 50%;
+    height: 100%;
+    background-color: #88b4e0;
+    font-size: clamp(8px, 1vw, 15px);
+    padding: 3px;
+}
+
+.energySc {
+    display: flex;
+}
+.avgEnergySc {
+    font-size: clamp(15px, 1.5vw, 20px);
+    font-weight: 600;
+}
+
+.finalEnergySc {
+    margin-top: 10px;
+}
+
+.avgEnergyIcon {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-image: url("/images/moodAvg.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.4;
+}
+
+
+.bottom-right2 {
+  z-index: 0;
+  bottom: 0px;
+  right: 0px;
+  transform: rotate(0deg);
+}
+
+
+.analyzeBoardHeader {
+    font-size: clamp(12px, 1.5vw, 25px);
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    border-radius: 16px 16px 0 0;
+    width: 100%;
+    padding: 5px;
+    position: relative;
+}
+
+.analyzeBoardMain {
+    display: flex;
+    font-size: clamp(9px, 0.9vw, 17px);
+    padding: 5px;
+    height: fit-content;
+    overflow-y: auto;
+    margin-top: 10px;
+}
+
+.avgEnergyIcon {
+    position: absolute;
+    width: clamp(43px, 3.2vw, 70px);
+    height: clamp(43px, 3.2vh, 70px);
+    background-image: url("/images/EnergyAvg.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: 0.4;
+}

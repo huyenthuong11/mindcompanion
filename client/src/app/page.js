@@ -1,18 +1,32 @@
 "use client";
 import styles from "./page.module.css";
 import { useRouter } from "next/navigation";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { Avatar } from "@mui/material";
 import Suggestion from "./suggestion/page.js";
+import Analyzation from "./analyze/page.js";
 import MoodChart from "./chart/page.js";
+import ChatPage from "./chatbotPopup/page.js";
+import useSuggestion from "../hook/useSuggestion.js";
 
 export default function Page() {
     const router = useRouter();
     const { user, logout } = useContext(AuthContext);
     const time = new Date();
-    
+    const [greeting, setGreeting] = useState(null);
     console.log( user?.username, time);
+    const suggestion = useSuggestion(user?.id);
+    const {
+            avgMood, 
+            avgEnergy, 
+            energy, 
+            emotion, 
+            analysis,
+            suggestions, 
+            loading
+        } 
+    = suggestion;
     
     const morningGreetings = [
         {
@@ -105,6 +119,9 @@ export default function Page() {
         router.push("/login");
     };
 
+    useEffect(() => {
+        setGreeting(getGreeting()?.vi)
+    }, [])
     
     return (
         <>
@@ -153,11 +170,34 @@ export default function Page() {
                     </aside>
 
                     <div className={styles.grid}>
-                        <div className={styles.cardWide}>{getGreeting()?.vi}</div>
-                        <div className={styles.cardSuggest}><Suggestion/></div>
-                        <div className={styles.cardChart}><MoodChart/></div>
-                        <div className={styles.card}>Phân tích</div>
+                        <div className={styles.cardWide}>{greeting}</div>
                         <div className={styles.card}>Goal</div>
+                        <div className={styles.cardAnalyzation}>
+                            <Analyzation 
+                                avgMood={avgMood} 
+                                emotion={emotion} 
+                                avgEnergy={avgEnergy}
+                                energy={energy} 
+                                analysis={analysis}
+                            />
+                        </div>
+                        <div className={styles.cardChart}>
+                            <div className={styles.chartHeader}>
+                                Sơ đồ cảm xúc của bạn
+                            </div>
+                            <div><MoodChart/></div>
+                        </div>
+                        
+                        <div className={styles.card}>
+                            <Suggestion
+                                suggestions={suggestions}
+                                loading = {loading}
+                            />
+                        </div>
+                        <div className={styles.card}>Gợi ý thư viện</div>
+                        <div className={styles.card}>
+                            <ChatPage/>
+                        </div>
                     </div>
                 </main>
             </div>

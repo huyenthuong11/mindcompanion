@@ -15,7 +15,8 @@ body {
 /* 3. Layout Chính */
 .container {
   display: flex;
-  min-height: 100vh;
+  
+  height: max-content;
   width: 100%;
   flex-direction: column;
   background: linear-gradient(135deg, #B2C9AB 0%, #A2C2E1 25%, #e8edca 50%, #D1D1F0 70%);
@@ -25,7 +26,7 @@ body {
   display: grid;
   grid-template-columns: 80px 1fr;
   grid-template-rows: 60px 1fr;
-  height: 100vh; 
+  min-height: 100vh; 
 }
 
 /* 4. Header & Sidebar */

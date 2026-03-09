@@ -10,12 +10,14 @@ import {
 import { useEffect, useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import api from "../../lib/axios.js";
+import  useSuggestion  from "../../hook/useSuggestion";
 
 export default function MoodChart() {
   
   const { user } = useContext(AuthContext);
   const [moods, setMoods] = useState([]);
-
+  const { analysis, isLoading } = useSuggestion(user?.id);
+  
   useEffect(() => {
       if (!user?.id) return;
       const getMood = async () => {
@@ -28,7 +30,7 @@ export default function MoodChart() {
             const data = response.data;
             setMoods(data);
         } catch (err) {
-            console.error("Failed to fetch moods: - page.js:31", err);
+            console.error("Failed to fetch moods: - page.js:33", err);
         }
       };
       getMood();
@@ -49,11 +51,11 @@ export default function MoodChart() {
 
 
   return (
-    <div style={{ display: "flex", gap: "0.02vw", alignItems: "center", marginLeft:"5px" }}>
+    <div style={{ display: "flex", flexDirection:"column" , gap: "0.02vw", alignItems: "center" }}>
 
       {/* Legend */}
-      <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+      <div style={{ display: "flex", gap: "20px" }}>
+        <div style={{ display: "flex", alignItems: "10px", gap: "6px" }}>
           <div
             style={{
               width: 12,
@@ -79,8 +81,8 @@ export default function MoodChart() {
       </div>
 
       {/* Chart */}
-      <div style={{ flex: 1, height: 250, marginTop:10 }}>
-        <ResponsiveContainer width="100%" height="100%">
+      <div style={{ width: "100%", height: 250, marginTop: "10px" }}>
+        <ResponsiveContainer width="95%" height="80%">
           <LineChart data={limitedData}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis 
@@ -96,7 +98,6 @@ export default function MoodChart() {
               stroke="#d54e84"
               strokeWidth={2}
               dot={false}
-              activeDot={{ r: 3 }}
             />
 
             <Line
@@ -105,7 +106,6 @@ export default function MoodChart() {
               stroke="#4e8dd5"
               strokeWidth={2}
               dot={false}
-              activeDot={{ r: 3 }}
             />
           </LineChart>
         </ResponsiveContainer>
