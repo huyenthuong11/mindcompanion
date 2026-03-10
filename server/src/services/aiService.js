@@ -1,7 +1,8 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-
-  const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+import OpenAI from "openai";
+const genAI = new OpenAI({
+  apiKey: process.env.GROQ_CHATBOT_API_KEY,
+  baseURL: "https://api.groq.com/openai/v1"
+});
 
 export async function analyzeMood(data) {
   
@@ -26,9 +27,18 @@ suggestions:[]
 }
 `;
 
-  const result = await model.generateContent(prompt);
-  const text = result.response.text();
+  
+  
+  const result = await genAI.chat.completions.create({
+    model: "openai/gpt-oss-120b",
+    messages: [
+      {
+        role: "user",
+        content: prompt
+      }
+    ]
+  });
+  const text = result.choices[0].message.content;;
   const clean = text.replace(/```json|```/g, "");
-
   return JSON.parse(clean);
 }

@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 
 export default function ChatBot() {
     const { user, logout } = useContext(AuthContext);
-    const { chatHistory, loading, refreshHistory } = useChatHistory(user?.id, 10);
+    const { chatHistory, loading, refreshHistory } = useChatHistory(user?.id, 50);
     const [userMessage, setUserMessage] = useState("");
     const [ newestMessage, setNewestMessage] = useState("");
     const { chatMessage } = useChatbot(user?.id, newestMessage);
@@ -65,6 +65,43 @@ export default function ChatBot() {
                             <p onClick={() => router.push("/setting")}>Cài đặt</p>
                         </nav>
                     </aside>
+
+                    <div className={styles.chatbotFrame}>
+                        <div className={styles.chatHeader}>
+                            <div className={styles.botInfo}>
+                                <div className={styles.botAvatar}></div>
+                                <div className={styles.botName}>Trò chuyện với Mind Companion AI- Yên</div>
+                            </div>
+                        </div>
+                        <div className={styles.chatMessages}>
+                            {   loading
+                                ? "Đang tải nội dung cuộc hội thoại..."
+                                : chatHistory.map((message) => (
+                                    <span
+                                        key={message.id}
+                                        className={`
+                                            ${message.role === "user" 
+                                                ? styles.userMessage
+                                                : ""
+                                            } 
+                                            ${message.role === "bot" 
+                                                ? styles.aiMessage
+                                                : ""
+                                            }`}
+                                    >
+                                        {message.message}
+                                    </span>
+                                ))    
+                            }
+                        </div>
+                        <textarea
+                            className={styles.inputContainer}
+                            placeholder="Gõ tin nhắn của bạn..."
+                            value={userMessage}
+                            onChange={(e) => setUserMessage(e.target.value)}
+                            onKeyDown={handleKeyDown}
+                        />
+                    </div>
                 </main>
             </div>
         </>

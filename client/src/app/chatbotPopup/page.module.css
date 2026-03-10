@@ -1,11 +1,4 @@
-.mainFrame {
-    display: flex;
-    flex-direction: column;
-    width: 60%;
-    height: 80%;
-    border-radius: 16px;
-    align-items: center;
-}
+
 .cardHeader {
     font-size: clamp(15px, 2vw, 25px);
     justify-content: center;

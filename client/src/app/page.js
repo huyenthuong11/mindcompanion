@@ -188,13 +188,12 @@ export default function Page() {
                             <div><MoodChart/></div>
                         </div>
                         
-                        <div className={styles.card}>
+                        <div className={styles.cardSuggest}>
                             <Suggestion
                                 suggestions={suggestions}
                                 loading = {loading}
                             />
                         </div>
-                        <div className={styles.card}>Gợi ý thư viện</div>
                         <div className={styles.card}>
                             <ChatPage/>
                         </div>

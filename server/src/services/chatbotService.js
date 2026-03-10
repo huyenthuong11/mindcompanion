@@ -1,7 +1,8 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_CHATBOT_API_KEY);
-
-const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+import OpenAI from "openai";
+const genAI = new OpenAI({
+  apiKey: process.env.GROQ_CHATBOT_API_KEY,
+  baseURL: "https://api.groq.com/openai/v1"
+});
 
 export async function chatbotRep(analysis, history) {
   const historyText = history
@@ -9,10 +10,10 @@ export async function chatbotRep(analysis, history) {
   .join("\n");
 
   const prompt = `
-Bạn là Yên, một trợ lý hỗ trợ sức khỏe tâm lý thân thiện.
+Bạn là Yên, một trợ lý hỗ trợ sức khỏe tâm lý thân thiện, thấu hiểu và đồng cảm.
 
 QUY TẮC BẮT BUỘC:
-- Trả lời tối đa 1–2 câu.
+- Trả lời tối đa 2-3 câu.
 - Dùng tiếng Việt tự nhiên, kiểu nói chuyện bình thường.
 - Mỗi câu ngắn gọn.
 - Không viết đoạn văn dài.
@@ -21,11 +22,18 @@ QUY TẮC BẮT BUỘC:
 Thông tin insight người dùng: ${analysis}
 
 Lịch sử hội thoại:
-${history}
+${historyText}
 `;
 
-  const result = await model.generateContent(prompt);
-  const text = result.response.text();
+  const result = await genAI.chat.completions.create({
+    model: "openai/gpt-oss-120b",
+    messages: [
+      {
+        role: "user",
+        content: prompt
+      }
+    ]
+  });
 
-  return text;
+  return result.choices[0].message.content;
 }

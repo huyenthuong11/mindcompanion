@@ -12,22 +12,19 @@ export default function ChatPage() {
     const [userMessage, setUserMessage] = useState("");
     const [ newestMessage, setNewestMessage] = useState("");
     const { chatMessage } = useChatbot(user?.id, newestMessage);
+    
     const handleKeyDown = (e) => {
         if (e.key === "Enter" && !e.shiftKey) {
             e.preventDefault();
             if (!userMessage.trim()) return;
             setNewestMessage(userMessage);
             setUserMessage("");
+            refreshHistory();
         }
     };
 
-    
-
     useEffect(() => {
         if(!user?.id) return;
-        if (chatMessage) {
-            refreshHistory();
-        }
     }, [user?.id, chatMessage]);
 
     return (
