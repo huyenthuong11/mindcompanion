@@ -1,6 +1,6 @@
 import OpenAI from "openai";
 const genAI = new OpenAI({
-  apiKey: process.env.GROQ_CHATBOT_API_KEY,
+  apiKey: process.env.GROG_API_KEY,
   baseURL: "https://api.groq.com/openai/v1"
 });
 
