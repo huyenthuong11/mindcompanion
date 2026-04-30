@@ -1,37 +1,44 @@
 import OpenAI from "openai";
 const genAI = new OpenAI({
-  apiKey: process.env.GROQ_CHATBOT_API_KEY,
+  apiKey: process.env.GROG_CHATBOT_API_KEY,
   baseURL: "https://api.groq.com/openai/v1"
 });
 
-export async function chatbotRep(analysis, history) {
-  const historyText = history
-  .map(m => `${m.role}: ${m.message}`)
-  .join("\n");
+export async function chatbotRep(analysis, userMessage, chatHistory) {
+  const formattedHistory = chatHistory.map(m => ({
+    role: m.role === 'user' ? 'user' : 'assistant',
+    content: m.message
+  }));
 
-  const prompt = `
-Bạn là Yên, một trợ lý hỗ trợ sức khỏe tâm lý thân thiện, thấu hiểu và đồng cảm.
+  const now = new Date();
+  const currentTime = now.toLocaleString('vi-VN', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  });
 
-QUY TẮC BẮT BUỘC:
-- Trả lời tối đa 2-3 câu.
-- Dùng tiếng Việt tự nhiên, kiểu nói chuyện bình thường.
-- Mỗi câu ngắn gọn.
-- Không viết đoạn văn dài.
-- Không giải thích dài dòng.
+  const systemInstruction = `
+Bạn là Yên, trợ lý sức khỏe tâm lý. 
+Tính cách: Thân thiện, dịu dàng, đồng cảm, nói chuyện như bạn bè thân thiết.
+Insight hiện tại về người dùng: ${analysis}
+Bối cảnh hiện tại: ${currentTime}.
 
-Thông tin insight người dùng: ${analysis}
-
-Lịch sử hội thoại:
-${historyText}
+QUY TẮC PHẢN HỒI:
+1. Độ dài: 1-3 câu ngắn gọn. Tuyệt đối không viết đoạn văn.
+2. Ngôn ngữ: Tiếng Việt tự nhiên (ví dụ dùng: "mình", "bạn", "nè", "hì", "nhé").
+3. Không giải thích, không liệt kê, không nhắc lại từ ngữ chuyên môn từ Insight.
+4. Ưu tiên sự thấu cảm hơn là đưa ra lời khuyên máy móc.
 `;
 
   const result = await genAI.chat.completions.create({
     model: "openai/gpt-oss-120b",
     messages: [
-      {
-        role: "user",
-        content: prompt
-      }
+      { role: "system", content: systemInstruction },
+      ...formattedHistory,
+      { role: "user", content: userMessage }
     ]
   });
 

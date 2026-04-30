@@ -1,5 +1,6 @@
 .cardHeader {
-    font-size: clamp(15px, 2vw, 25px);
+    font-weight: 700;
+    font-size: clamp(12px, 1.2vw, 20px);
     justify-content: center;
     align-items: center;
     display: flex;
@@ -30,8 +31,8 @@
 
 .cardAvatarImg {
     background-image: url("/images/suggestIcon.jpg");
-    width: clamp(100px, 9.5vw, 180px);
-    height: clamp(100px, 9.5vw, 180px);
+    width: 100px;
+    height: 100px;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -44,7 +45,7 @@
     display: flex;
     flex-direction: column;
     gap: 6px;
-    font-size: clamp(15px,  1.2vw, 25px);
+    font-size: clamp(10px, 0.9vw, 15px);
     align-items: center;
     height: 90%;
     margin-bottom: auto;

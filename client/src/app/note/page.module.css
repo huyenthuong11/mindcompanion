@@ -96,12 +96,19 @@
 
 .historyDay {
   font-size: clamp(8px, 1.2vw, 15px);
-  grid-column: span 4;
+  grid-column: span 3;
   grid-row: span 1;
+
+}
+
+.deleteButton {
+  grid-column: span 1;
+  grid-row: span 1;
+  font-size: clamp(8px, 1.2vw, 15px);
 }
 
 .historyEmotionIcon {
-  width: 100%;
+  font-size: clamp(15px, 2vw, 40px);
   border-radius: 10px;
   margin-bottom: 15px;
   grid-column: span 1;

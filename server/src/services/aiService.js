@@ -4,14 +4,18 @@ const genAI = new OpenAI({
   baseURL: "https://api.groq.com/openai/v1"
 });
 
-export async function analyzeMood(data) {
-  
+export async function analyzeMood(data, chatHistory) {
+  const historyText = chatHistory
+  .map(m => `${m.role}: ${m.message}`)
+  .join("\n");
   const prompt = `
 Bạn là trợ lý sức khỏe tinh thần.
 
 Dữ liệu 3 ngày gần nhất:
 
 ${JSON.stringify(data)}
+
+Cuộc đối thoại với chatbot trong 3 ngày gần nhất: ${historyText}
 
 Hãy:
 1. Phân tích trạng thái tinh thần, tìm ra insight cốt lõi

@@ -9,6 +9,10 @@ import Analyzation from "./analyze/page.js";
 import MoodChart from "./chart/page.js";
 import ChatPage from "./chatbotPopup/page.js";
 import useSuggestion from "../hook/useSuggestion.js";
+import Chatbot from "./chatbotPopup/page.js";
+import api from "../lib/axios.js";
+import MiniMoodRadar from "./chatbot/MiniMoodRadar.js";
+
 
 export default function Page() {
     const router = useRouter();
@@ -27,7 +31,9 @@ export default function Page() {
             loading
         } 
     = suggestion;
-    
+    const [scores, setScores] = useState(null);
+    const userId = user?.id;
+
     const morningGreetings = [
         {
             "en": `Good morning ${user?.username || "my friend"}.\nDid you have a nice dream last night?`,
@@ -119,6 +125,23 @@ export default function Page() {
         router.push("/login");
     };
 
+    const getMood = async () => {
+        try {
+            const response = await api.get("/moods/getTodayEntries", {
+                params: {userId}
+            });
+            const scores = response.data.scores;
+            setScores(scores);
+        } catch (err) {
+            console.error("Failed to fetch moods: - page.js:52", err);
+        }
+    };
+
+    useEffect(() => {    
+        if(!user?.id) return;   
+        getMood();
+    }, [user?.id])
+
     useEffect(() => {
         setGreeting(getGreeting()?.vi)
     }, [])
@@ -171,7 +194,14 @@ export default function Page() {
 
                     <div className={styles.grid}>
                         <div className={styles.cardWide}>{greeting}</div>
-                        <div className={styles.card}>Goal</div>
+                        <div className={styles.c}>
+                        <Chatbot/></div>
+                        <div className={styles.c}>
+                            <div className={styles.chartHeader}>
+                                Tâm trạng hiện tại
+                            </div>
+                            <MiniMoodRadar avgMood={avgMood} avgEnergy={avgEnergy} scores={scores}/>
+                        </div>
                         <div className={styles.cardAnalyzation}>
                             <Analyzation 
                                 avgMood={avgMood} 
@@ -193,9 +223,6 @@ export default function Page() {
                                 suggestions={suggestions}
                                 loading = {loading}
                             />
-                        </div>
-                        <div className={styles.card}>
-                            <ChatPage/>
                         </div>
                     </div>
                 </main>

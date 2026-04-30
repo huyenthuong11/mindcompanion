@@ -5,7 +5,7 @@ import { Avatar } from "@mui/material";
 import { AuthContext } from "../../context/AuthContext";
 import { useContext, useState, useEffect } from "react";
 import styles from "./page.module.css";
-
+import Chatbot from "../chatbotPopup/page";
 
 export default function Library() {
     const router = useRouter();
@@ -111,6 +111,7 @@ export default function Library() {
                                     )
                                 )
                             }
+                            <Chatbot/>
                         </div>
                     </div>
                 </main>

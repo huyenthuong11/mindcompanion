@@ -7,7 +7,12 @@ import { Box, Typography, TextField, Alert } from "@mui/material";
 import Button from "@mui/material/Button";
 import styles from "./page.module.css";
 import api from "../../lib/axios.js";
-import { Avatar } from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
+import  Avatar  from "@mui/material/Avatar";
+import EditIcon from "@mui/icons-material/Edit";
+import IconButton from "@mui/material/IconButton";
+import Chatbot from "../chatbotPopup/page.js";
+
 
 export default function NotePage() {
     const { user, logout } = useContext(AuthContext);
@@ -47,7 +52,7 @@ export default function NotePage() {
             const data = response.data;
             setMoods(data);
         } catch (err) {
-            console.error("Failed to fetch moods: - page.js:50", err);
+            console.error("Failed to fetch moods: - page.js:52", err);
         } finally {
             setIsLoading(false);
         }
@@ -106,9 +111,9 @@ export default function NotePage() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log("USER: - page.js:109", user);
+        console.log("USER: - page.js:111", user);
         if (!user || !user.id) {
-            console.error("User chưa load xong - page.js:111");
+            console.error("User chưa load xong - page.js:113");
             return;
         }
 
@@ -140,6 +145,23 @@ export default function NotePage() {
             }));
         } 
     };
+
+    const handleDelete = async (id) => {
+        try {
+            const response = await api.delete(`/moods/delete/${id}`, {
+                data: {
+                    userId: user?.id
+                }
+            })
+            console.log(id);
+            if (response.status === 200 || response.status === 201) {
+                getMood();
+            }
+            
+        } catch (error) {
+            console.error("fail deleted - page.js:159", error);
+        }
+    }
 
 
     return (
@@ -178,9 +200,18 @@ export default function NotePage() {
                             <div className={styles.historyBox}>
                                 { moods.length > 0 ? (
                                     moods.map((mood) => (
-                                        <div className={`${styles['historyCard']} ${styles[`energy-${mood.energy}`]}`} key={mood.value}> 
+                                        <div className={`${styles['historyCard']} ${styles[`energy-${mood.energy}`]}`} key={mood._id}> 
                                             <div className={styles.historyDay}>
                                                 {new Date(mood.createdAt).toLocaleDateString('vi-VN')}
+                                            </div>
+                                            <div className={styles.deleteButton}>
+                                                <IconButton
+                                                    onClick={() => handleDelete(mood._id)}
+                                                    size="small"
+                                                    sx={{ width: 10, height: 10, color: "error.main" }}
+                                                >
+                                                    <DeleteIcon/>
+                                                </IconButton>
                                             </div>
                                             <div className={styles.historyEmotionIcon}>
                                                 {moodList.find(m => m.value === mood.mood)?.icon || '😐'}
@@ -381,6 +412,7 @@ export default function NotePage() {
                                 <div className={`${styles['leaf-wrapper4']} ${styles['bottom-right2']}`}></div>
                             </div>
                         </div>
+                        <Chatbot/>
                     </div>
                 </main>
             </div>
