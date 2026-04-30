@@ -9,8 +9,7 @@ const userSchema = new mongoose.Schema(
             unique: true,
             trim: true,
         },
-        firstname : String,
-        lastname : String,
+        fullname : String,
         avatar : String,
         password: {
             type: String,
@@ -20,6 +19,19 @@ const userSchema = new mongoose.Schema(
             type: String,   
             enum: ["male", "female", "other", "Don't want to reveal"],
             default: "Don't want to reveal",
+        },
+        avatar: {
+            type: String,
+            default: "",
+        },
+        dateOfBirth: {
+            type: Date,
+            default: Date.now,
+        },
+        phoneNumber: {
+            type: String,
+            unique: true,
+            default: "",
         },
     },
     {

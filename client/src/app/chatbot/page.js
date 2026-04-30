@@ -20,11 +20,10 @@ export default function Chatbot() {
     const [displayMessages, setDisplayMessages] = useState([]);
     const scrollRef = useRef(null);
     const { avgMood, avgEnergy, energy, emotion, 
-        analysis, suggestions} = useSuggestion(user?.id);
-    
+        analysis, suggestions} = useSuggestion(user?.id);    
     const [scores, setScores] = useState(null);
+    const [resourcesSuggestion, setResourcesSuggestion] = useState(null);
     const userId = user?.id;
-    console.log('userId:', userId);
 
     useEffect(() => {
         setDisplayMessages(chatHistory);
@@ -52,6 +51,7 @@ export default function Chatbot() {
             console.error("Failed to fetch moods: - page.js:52", err);
         }
     };
+
     const handleKeyDown = (e) => {
         if (e.key === "Enter" && !e.shiftKey) {
             e.preventDefault();
@@ -73,6 +73,18 @@ export default function Chatbot() {
         setUserMessage("");
     };
 
+    const getResourcesSuggestion = async () => {
+        try {
+            const res = await api.get("/ai/resourcesSuggestion", {
+                params: {userId}
+            });
+            const data = res.data;
+            setResourcesSuggestion(data);  
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     useEffect(() => {
         if(!user?.id) return;
         if (chatMessage) {
@@ -83,9 +95,11 @@ export default function Chatbot() {
     useEffect(() => {    
         if(!user?.id) return;   
         getMood();
+        getResourcesSuggestion();
     }, [user?.id])
 
-    console.log(scores)
+    console.log("tài nguyên: ", resourcesSuggestion);
+
     return (
         <div className="container">
             <main className="main">
@@ -107,8 +121,8 @@ export default function Chatbot() {
                     <nav>
                         <p onClick={() => router.push("/")}>Trang chủ</p>
                         <p onClick={() => router.push("/note")}>Ghi chú</p>
-                        <a onClick={() => router.push("/library")}>Thư viện</a>
-                        <p onClick={() => router.push("/chatbot")}>Chatbot</p>
+                        <p onClick={() => router.push("/library")}>Thư viện</p>
+                        <a onClick={() => router.push("/chatbot")}>Chatbot</a>
                         <p onClick={() => router.push("/setting")}>Cài đặt</p>
                     </nav>
                 </aside>
@@ -123,7 +137,7 @@ export default function Chatbot() {
                             </p>
                         </div>
                         <div className={styles.miniCard}>
-                            <h3>Gợi ý cho bạn</h3>
+                            <h3 style={{marginBottom: "10px"}}>Gợi ý cho bạn</h3>
                             <ul style={{listStyle: 'none', padding: 0, fontSize: '14px'}}>
                                 <li style={{marginBottom: '10px'}}>{suggestions[0]}</li>
                                 <li style={{marginBottom: '10px'}}>{suggestions[1]}</li>
@@ -165,6 +179,28 @@ export default function Chatbot() {
                         </div>
                         </div>
                     </div>
+                    <aside className={styles.sidePanel}>
+                        <div className={styles.miniCard}>
+                            <h3 style={{marginBottom: "10px"}}>Gợi ý cho bạn</h3>
+                            {resourcesSuggestion?.length > 0 ? (
+                                resourcesSuggestion.map((re) => (
+                                    <div className={styles.videoCard} key={re._id}>
+                                        <iframe
+                                            className={styles.video}
+                                            src={`https://www.youtube.com/embed/${re.videoId}`}
+                                            title={re.title}
+                                            allowFullScreen
+                                        />
+                                        <div className={styles.cardTitle}>
+                                            {re.title}
+                                        </div>
+                                    </div>
+                                ))
+                            ) : (
+                                <p>Đang tìm tài nguyên phù hợp...</p>
+                            )}
+                        </div>
+                    </aside>
                 </div>
             </main>
         </div>

@@ -19,7 +19,6 @@ export default function Page() {
     const { user, logout } = useContext(AuthContext);
     const time = new Date();
     const [greeting, setGreeting] = useState(null);
-    console.log( user?.username, time);
     const suggestion = useSuggestion(user?.id);
     const {
             avgMood, 

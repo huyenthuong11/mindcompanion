@@ -27,7 +27,6 @@ export const getMoodEntries = async (req, res) => {
         })
             .sort({ createdAt: -1 })
             .limit(30);
-        console.log(entries);
         res.status(200).json(entries);
     } catch (error) {
         res.status(500).json({ message: "Failed to retrieve mood entries" });
@@ -96,8 +95,6 @@ export const getTodayMoodEntry = async (req, res) => {
             relationship: calculateScore(tagCounts.relationship),
             personal: calculateScore(tagCounts.personal)
         };
-
-        console.log(scores);
 
         res.status(200).json({
             scores: scores

@@ -1,0 +1,50 @@
+.settingsCard {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.sectionTitle {
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    color: #333;
+    font-weight: 600;
+}
+
+.settingItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.settingItem:last-child {
+    border-bottom: none;
+}
+
+.inputField {
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 8px 12px;
+    width: 250px;
+}
+
+.settingsContainer {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    animation: fadeIn 0.5s ease;
+}
+
+.settingCards {
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+    flex: 1;
+}

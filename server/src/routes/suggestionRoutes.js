@@ -4,6 +4,7 @@ import Suggestions from "../models/Suggestions.js";
 import crypto from "crypto";
 import authMiddleware from "../middlewares/authMiddleware.js";
 import ChatMessages from "../models/ChatMessages.js";
+import { recommendResources } from "../services/resourcesRecommendService.js";
 
 const router = express.Router();
 function hashMoods(moods){
@@ -57,5 +58,22 @@ router.post("/suggestion", authMiddleware, async (req, res) => {
   }
 });
 
+//GET api/ai/resourcesSuggestion
+router.get("/resourcesSuggestion", authMiddleware, async(req, res) => {
+  try {
+    const {userId} = req.query;
+    const suggestion = await Suggestions
+      .findOne({userId})
+      .sort({ createdAt: -1 });
+    
+    const analysis = suggestion?.analysis || "";
+    const aiReply = await recommendResources(analysis);
+    const re = aiReply.resources;
+    res.status(200).json(re);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json("Lỗi fetch reS");
+  }
+})
 
 export default router;
