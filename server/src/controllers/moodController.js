@@ -104,3 +104,19 @@ export const getTodayMoodEntry = async (req, res) => {
         res.status(500).json({message: "Failed to retrieve mood entries"})
     }
 }
+
+export const getMoodEntryById = async (req, res) => {
+    try {
+        const {userId} = req.query;
+        const entry = await moodEntryModel.findOne({
+            userId,
+            _id: req.params.id
+        });
+        if (!entry) {
+            return res.status(404).json({ message: "Mood entry not found" });
+        }
+        res.status(200).json(entry);
+    } catch (error) {
+        res.status(500).json({ message: "Failed to retrieve mood entry" });
+    }
+};

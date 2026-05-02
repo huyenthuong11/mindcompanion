@@ -12,7 +12,7 @@ import  Avatar  from "@mui/material/Avatar";
 import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton";
 import Chatbot from "../chatbotPopup/page.js";
-
+import SelectedMoodModal from "./SelectedMoodModal.js";
 
 export default function NotePage() {
     const { user, logout } = useContext(AuthContext);
@@ -29,7 +29,7 @@ export default function NotePage() {
     
     const [errors, setErrors] = useState({});
     const [successMessage, setSuccessMessage] = useState("");
-    
+    const [selectedMoodId, setSelectedMoodId] = useState(null);
     const handleChange = (name, value) => {
         setForm((prevData) => ({
         ...prevData,
@@ -174,11 +174,22 @@ export default function NotePage() {
                             <div className="websiteName">Mind Companion</div>
                         </div>
                         <div className="user">
-                            <Avatar></Avatar> 
-                            <span>{user?.username || "Username"}</span> 
-                            <div className="sign"> 
-                                <a onClick={handleLogout}>Đăng xuất</a>
-                            </div>
+                            {user?.avatar ? (
+                                    <Avatar 
+                                        style={{
+                                            background: 'white',
+                                            border: '0.1px solid #083d5e',
+                                            padding: '3px'
+                                        }}
+                                        src={`http://localhost:5000/${user.avatar}`} 
+                                    />
+                                ) : (
+                                    <Avatar />
+                                )}
+                                <span>{user?.fullName || user?.username || "Username"}</span> 
+                                <div className="sign"> 
+                                    <a onClick={handleLogout}>Đăng xuất</a>
+                                </div>
                         </div>
                     </div>
 
@@ -200,9 +211,13 @@ export default function NotePage() {
                             <div className={styles.historyBox}>
                                 { moods.length > 0 ? (
                                     moods.map((mood) => (
-                                        <div className={`${styles['historyCard']} ${styles[`energy-${mood.energy}`]}`} key={mood._id}> 
+                                        <div 
+                                            className={`${styles['historyCard']} ${styles[`energy-${mood.energy}`]}`} 
+                                            key={mood._id} 
+                                            onClick={() => setSelectedMoodId(mood._id)}
+                                        >
                                             <div className={styles.historyDay}>
-                                                {new Date(mood.createdAt).toLocaleDateString('vi-VN')}
+                                                {new Date(mood?.createdAt).toLocaleDateString('vi-VN', { hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit', year: 'numeric' })}
                                             </div>
                                             <div className={styles.deleteButton}>
                                                 <IconButton
@@ -415,6 +430,13 @@ export default function NotePage() {
                         <Chatbot/>
                     </div>
                 </main>
+                {selectedMoodId && (
+                    <SelectedMoodModal 
+                        id={selectedMoodId}
+                        userId={user.id}
+                        onClose={() => setSelectedMoodId(null)} 
+                    />
+                )}
             </div>
         </>
     );

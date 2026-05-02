@@ -109,11 +109,22 @@ export default function Chatbot() {
                         <div className="websiteName">Mind Companion</div>
                     </div>
                     <div className="user">
-                        <Avatar></Avatar> 
-                        <span>{user?.username || "Username"}</span> 
-                        <div className="sign"> 
-                            <a onClick={handleLogout}>Đăng xuất</a>
-                        </div>
+                        {user?.avatar ? (
+                                    <Avatar 
+                                        style={{
+                                            background: 'white',
+                                            border: '0.1px solid #083d5e',
+                                            padding: '3px'
+                                        }}
+                                        src={`http://localhost:5000/${user.avatar}`} 
+                                    />
+                                ) : (
+                                    <Avatar />
+                                )}
+                                <span>{user?.fullName || user?.username || "Username"}</span> 
+                                <div className="sign"> 
+                                    <a onClick={handleLogout}>Đăng xuất</a>
+                                </div>
                     </div>
                 </div>
     

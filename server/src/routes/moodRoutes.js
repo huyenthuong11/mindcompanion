@@ -3,7 +3,8 @@ import {
     createMoodEntry,
     getMoodEntries,
     deleteMoodEntry,
-    getTodayMoodEntry
+    getTodayMoodEntry,
+    getMoodEntryById
 } from "../controllers/moodController.js";
 import authMiddleware from "../middlewares/authMiddleware.js";
 const router = express.Router();
@@ -20,4 +21,6 @@ router.delete("/delete/:id", authMiddleware, deleteMoodEntry);
 //GET /api/moods/getTodayEntries
 router.get("/getTodayEntries", authMiddleware, getTodayMoodEntry);
 
+//GET /api/moods/getById/:id
+router.get("/getById/:id", authMiddleware, getMoodEntryById);
 export default router;

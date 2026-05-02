@@ -62,6 +62,7 @@
   padding-right: 8px;
   height: fit-content;
   margin-bottom: 15px;
+  cursor: pointer;
 }
 
 .historyCard.energy-5{
@@ -315,7 +316,7 @@
 .noteBox {
   width: 90%;
   max-width: 850px;
-  height: 100px;
+  height: 140px;
   padding: 1vw;
   margin-top: 40px;
   margin-left: auto;

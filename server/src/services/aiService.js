@@ -19,8 +19,8 @@ Cuộc đối thoại với chatbot trong 3 ngày gần nhất: ${historyText}
 
 Hãy:
 1. Phân tích trạng thái tinh thần, tìm ra insight cốt lõi
-2. Xác định cảm xúc chính
-3. Xác định năng lượng chính
+2. Xác định cảm xúc chính trong tối đa 8 từ
+3. Xác định năng lượng chính trong tối đa 8 từ
 4. Gợi ý 3 hoạt động cải thiện một cách ngắn gọn nhất
 Câu trả lời phải 100% tiếng việt và chỉ trả về JSON:
 {

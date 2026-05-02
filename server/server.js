@@ -14,11 +14,14 @@ dotenv.config();
 const app = express();
 console.log("ENV TEST: - server.js:15", process.env.GEMINI_API_KEY);
 
+//image
+app.use("/uploads", express.static("uploads"));
+
 //middleware
 app.use(cors());
 app.use(express.json());
 app.use("/api/auth", authRoutes);
-app.use("/api/user", userRoutes);
+app.use("/api/users", userRoutes);
 app.use("/api/moods", moodRoutes);
 app.use("/api/ai", suggestionRoutes);
 app.use("/api/ai", chatbotRoutes);

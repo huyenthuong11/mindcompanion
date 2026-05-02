@@ -4,13 +4,13 @@ import fs from "fs"
 import path from "path";
 import upload from "../middlewares/imageMiddleware.js";
 import User from "../models/User.js";
-
+import bcrypt from "bcrypt";
 
 const router = express.Router();
 
 // GET /api/users/profile
-router.get("/profile", authMiddleware, (req, res) => {
-    const { userId } = req.body;
+router.get("/profile", authMiddleware,async (req, res) => {
+    const { userId } = req.query;
     const user = await User.findById(userId);
     res.json({
         message: "Lấy profile thành công",
@@ -23,6 +23,7 @@ router.patch("/updateProfile", authMiddleware, upload.single("avatar"), async(re
     try {
         const { userId } = req.body;
         const user = await User.findById(userId);
+        if (!user) return res.status(404).json({message:"Không tìm thấy user"});
         const { fullName, dateOfBirth, phoneNumber, gender, username } = req.body;
         const updateFields = {};
         if (fullName) updateFields.fullName = fullName;
@@ -38,14 +39,6 @@ router.patch("/updateProfile", authMiddleware, upload.single("avatar"), async(re
                 }
             }
         }
-        const usernameInDB = await User.find({
-            username: username
-        });
-        if (usernameInDB) {
-            return res.status(404).json({message: "Username này đã tồn tại!"})
-        } else {
-            updateFields.username = username;
-        };
         
         const updateUser = await User.findByIdAndUpdate(
             userId,
@@ -59,7 +52,7 @@ router.patch("/updateProfile", authMiddleware, upload.single("avatar"), async(re
             message: "Chỉnh sửa thành công"
         });
     } catch (error) {
-        console.error(err);
+        console.error(error);
         res.status(500).json({ message: "Chỉnh sửa thất bại", err });
     }
 })

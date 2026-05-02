@@ -139,8 +139,11 @@
     height: fit-content;
     overflow-y: auto;
     margin-top: 10px;
+    scrollbar-width: none;
 }
-
+.analyzeBoardMain::-webkit-scrollbar {
+    display: none;
+}
 .avgEnergyIcon {
     position: absolute;
     width: clamp(43px, 3.2vw, 70px);
