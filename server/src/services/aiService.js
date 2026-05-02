@@ -4,6 +4,25 @@ const genAI = new OpenAI({
   baseURL: "https://api.groq.com/openai/v1"
 });
 
+
+async function getResourcesFromDB(query) {
+    try {
+        const keywords = query.split(' ').join('|');
+        const regex = new RegExp(keywords, 'i');
+        const resources = await Library.find({
+            $or: [
+                { title: { $regex: regex } },
+                { type: { $regex: regex } }
+            ]
+        }).limit(3);
+
+        return resources;
+    } catch (error) {
+        return "Lỗi truy vấn dữ liệu.";
+    }
+}
+
+
 export async function analyzeMood(data, chatHistory) {
   const historyText = chatHistory
   .map(m => `${m.role}: ${m.message}`)

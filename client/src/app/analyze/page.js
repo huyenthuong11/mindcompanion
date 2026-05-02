@@ -12,8 +12,8 @@ export default function AnalyzationPage({avgMood, emotion, avgEnergy, energy, an
                 </div>
                 <div className={styles.avgMain}>
                     <div className={styles.avgMoodBoard}>
-                        <div>
-                            Cảm xúc trung bình
+                        <div style={{fontSize: '15px'}}>
+                            Cảm xúc
                         </div>
                         <div className={styles.moodSc}>
                             <div className = {styles.avgMoodSc}>{avgMood}</div>
@@ -23,8 +23,8 @@ export default function AnalyzationPage({avgMood, emotion, avgEnergy, energy, an
                         <div className={`${styles['avgMoodIcon']} ${styles['bottom-right1']}`}></div>
                     </div>
                     <div className={styles.avgEnergyBoard}>
-                        <div>
-                            Năng lượng trung bình
+                        <div style={{fontSize: '15px'}}>
+                            Năng lượng
                         </div>
                         <div className={styles.energySc}>
                             <div className = {styles.avgEnergySc}>{avgEnergy}</div>

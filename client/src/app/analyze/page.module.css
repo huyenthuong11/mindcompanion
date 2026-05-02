@@ -20,12 +20,13 @@
 }
 .avgMain {
     display: flex;
-    width: 90%;
+    width: 100%;
     height: fit-content;
     align-items: center;
     gap: 10px;
     margin-left: auto;
     margin-right: auto;
+    padding: 5px;
 }
 
 .avgMoodBoard {
@@ -56,6 +57,10 @@
 .emotion {
     margin-top: 2px;
     font-size: clamp(8px, 0.8vw, 15px);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .avgMoodIcon {
@@ -66,7 +71,7 @@
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    opacity: 0.4;
+    opacity: 0.3;
 }
 
 

@@ -2,9 +2,11 @@ import { useState } from 'react';
 import styles from './SelectedMoodModal.module.css';
 import api from "../../lib/axios.js";
 import { useEffect } from "react";
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 
-export default function SelectedMoodModal({ id, onClose, userId }) {
+export default function SelectedMoodModal({ id, onClose, userId, handleDelete }) {
     const [moodEntry, setMoodEntry] = useState(null);
 
     const fetchMoodEntryById = async (id) => {
@@ -45,7 +47,8 @@ export default function SelectedMoodModal({ id, onClose, userId }) {
         { label: '#tìnhcảm', value: 'love', bg: '#FCE4EC', color: '#D81B60' },       // Hồng phấn
         { label: '#tươnglai', value: 'future', bg: '#E0F7FA', color: '#00ACC1' }      // Xanh lơ (Cyan)
     ];
-    console.log(moodEntry);
+
+
     return (
         <div className={styles.overlay} onClick={onClose}>
             <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
@@ -81,6 +84,18 @@ export default function SelectedMoodModal({ id, onClose, userId }) {
                             );
                         })}
                     </div>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+                <IconButton
+                    onClick={() => {
+                        handleDelete(moodEntry._id)
+                        onClose();
+                    }}
+                    size="large"
+                    sx={{ width: 40, height: 40, color: "error.main" }}
+                >
+                    <DeleteIcon/>
+                </IconButton>
                 </div>
             </div>
         </div>

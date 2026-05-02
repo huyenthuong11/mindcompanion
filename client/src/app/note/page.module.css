@@ -42,7 +42,11 @@
   border-radius: 15px;
   width: 85%;
   height: 80%;
-  
+  scrollbar-width: none;
+}
+
+.historyBox::-webkit-scrollbar {
+  display: none;
 }
 
 .noHistory {

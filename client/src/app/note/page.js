@@ -220,13 +220,6 @@ export default function NotePage() {
                                                 {new Date(mood?.createdAt).toLocaleDateString('vi-VN', { hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit', year: 'numeric' })}
                                             </div>
                                             <div className={styles.deleteButton}>
-                                                <IconButton
-                                                    onClick={() => handleDelete(mood._id)}
-                                                    size="small"
-                                                    sx={{ width: 10, height: 10, color: "error.main" }}
-                                                >
-                                                    <DeleteIcon/>
-                                                </IconButton>
                                             </div>
                                             <div className={styles.historyEmotionIcon}>
                                                 {moodList.find(m => m.value === mood.mood)?.icon || '😐'}
@@ -334,7 +327,7 @@ export default function NotePage() {
                                             component="label"
                                             sx={{
                                             fontWeight: "700",
-                                            fontSize: "clamp(17px, 1.5vw, 30px)",
+                                            fontSize: "clamp(17px, 1.3vw, 30px)",
                                             mb: "10px",
                                             display: "block",
                                             }}
@@ -434,6 +427,7 @@ export default function NotePage() {
                     <SelectedMoodModal 
                         id={selectedMoodId}
                         userId={user.id}
+                        handleDelete={handleDelete}
                         onClose={() => setSelectedMoodId(null)} 
                     />
                 )}

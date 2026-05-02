@@ -125,6 +125,11 @@ export default function Page() {
             setPwErrors(newErrors);
             return;
         }
+        if (passwordData.oldPassword === passwordData.newPassword) {
+            newErrors.newPassword = "Mật khẩu mới không được trùng với mật khẩu cũ";
+            setPwErrors(newErrors);
+            return;
+        }
         try {
             await api.patch('/users/change-password', {
                 userId: user?.id,
