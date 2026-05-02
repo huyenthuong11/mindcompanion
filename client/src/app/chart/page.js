@@ -6,6 +6,7 @@ import {
   YAxis,
   CartesianGrid,
   ResponsiveContainer,
+  Tooltip,
 } from "recharts";
 import { useEffect, useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
@@ -36,12 +37,14 @@ export default function MoodChart() {
       getMood();
   }, [user?.id]);
 
-  const chartData = [...moods]
+  const chartData = [...(moods || [])]
   .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
   .map((item) => ({
       date: new Date(item.createdAt).toLocaleDateString("vi-VN", {
         day: "numeric",
-        month: "numeric"
+        month: "numeric",
+        hour: "2-digit",
+        minute: "2-digit"
       }),
       mood: Number(item.mood),
       energy: Number(item.energy)
@@ -88,9 +91,13 @@ export default function MoodChart() {
             <XAxis 
               dataKey="date"
               textAnchor="end"
+              tickFormatter={(value) => value.split(" ")[1]}
             />
-            <YAxis domain={[1, 5]} />
-
+            <YAxis
+              domain={[1,5]}
+              ticks={[1,2,3,4,5]}
+            />
+            <Tooltip />
 
             <Line
               type="monotone"
@@ -98,6 +105,7 @@ export default function MoodChart() {
               stroke="#d54e84"
               strokeWidth={2}
               dot={false}
+              activeDot={{ r: 6 }}
             />
 
             <Line
