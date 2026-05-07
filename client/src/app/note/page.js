@@ -13,9 +13,10 @@ import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton";
 import Chatbot from "../chatbotPopup/page.js";
 import SelectedMoodModal from "./SelectedMoodModal.js";
-
+import useReaderProfile from "../../hook/useReaderProfile.js";
 export default function NotePage() {
     const { user, logout } = useContext(AuthContext);
+    const userProfile = useReaderProfile();
     const [moods, setMoods] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const router = useRouter();
@@ -174,19 +175,19 @@ export default function NotePage() {
                             <div className="websiteName">Mind Companion</div>
                         </div>
                         <div className="user">
-                            {user?.avatar ? (
+                            {userProfile?.avatar ? (
                                     <Avatar 
                                         style={{
                                             background: 'white',
                                             border: '0.1px solid #083d5e',
                                             padding: '3px'
                                         }}
-                                        src={`http://localhost:5000/${user.avatar}`} 
+                                        src={`http://localhost:5000/${userProfile.avatar}`} 
                                     />
                                 ) : (
                                     <Avatar />
                                 )}
-                                <span>{user?.fullName || user?.username || "Username"}</span> 
+                                <span>{userProfile?.fullName || userProfile?.username || "Username"}</span> 
                                 <div className="sign"> 
                                     <a onClick={handleLogout}>Đăng xuất</a>
                                 </div>

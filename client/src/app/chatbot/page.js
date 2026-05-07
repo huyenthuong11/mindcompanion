@@ -9,7 +9,7 @@ import { Avatar } from "@mui/material";
 import useSuggestion from "../../hook/useSuggestion.js";
 import api from "../../lib/axios.js";
 import MiniMoodRadar from './MiniMoodRadar.js';
-
+import useReaderProfile from "../../hook/useReaderProfile.js";
 export default function Chatbot() {
     const router = useRouter();
     const { user, logout } = useContext(AuthContext);
@@ -24,7 +24,7 @@ export default function Chatbot() {
     const [scores, setScores] = useState(null);
     const [resourcesSuggestion, setResourcesSuggestion] = useState(null);
     const userId = user?.id;
-
+    const userProfile = useReaderProfile();
     useEffect(() => {
         setDisplayMessages(chatHistory);
     }, [chatHistory]);
@@ -109,19 +109,19 @@ export default function Chatbot() {
                         <div className="websiteName">Mind Companion</div>
                     </div>
                     <div className="user">
-                        {user?.avatar ? (
+                        {userProfile?.avatar ? (
                                     <Avatar 
                                         style={{
                                             background: 'white',
                                             border: '0.1px solid #083d5e',
                                             padding: '3px'
                                         }}
-                                        src={`http://localhost:5000/${user.avatar}`} 
+                                        src={`http://localhost:5000/${userProfile.avatar}`} 
                                     />
                                 ) : (
                                     <Avatar />
                                 )}
-                                <span>{user?.fullName || user?.username || "Username"}</span> 
+                                <span>{userProfile?.fullName || userProfile?.username || "Username"}</span> 
                                 <div className="sign"> 
                                     <a onClick={handleLogout}>Đăng xuất</a>
                                 </div>
