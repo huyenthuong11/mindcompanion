@@ -17,6 +17,7 @@ Công nghệ sử dụng:
   - AI Integration: Groq API
   - Middleware: CORS, Express JSON, Static Uploads (xử lý hình ảnh)
 Cấu trúc thư mục:
+```
 - 
 client
 ├──public
@@ -36,7 +37,7 @@ client
        ├──routes/
        ├──services/
        ├──uploads/
-
+```
 Hướng Dẫn Chạy Dự Án
 Cài đặt các gói phụ thuộc:
         npm install
