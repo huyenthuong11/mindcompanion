@@ -39,6 +39,7 @@ client
        ├──uploads/
 ```
 Hướng Dẫn Chạy Dự Án
+```
 Cài đặt các gói phụ thuộc:
         npm install
 Cấu hình môi trường: Tạo file .env với các thông số:
@@ -53,4 +54,4 @@ Trạng thái dự án:
   - Core Features: Đã hoàn thiện các tính năng chính
   - Video Hub: Đã tích hợp danh sách video giải trí hỗ trợ sức khỏe tinh thần.
   - Internationalization (i18n): Tính năng đa ngôn ngữ hiện đang trong giai đoạn phát triển và sẽ được hoàn thiện trong các bản cập nhật sau.
-        
+        ```
